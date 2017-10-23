@@ -11,8 +11,11 @@ var weapon2
   //remeber to add name of sprite here
 game.load.spritesheet('player', 'assets/')
 game.load.spritesheet('player2', 'assets/')
+game.load.sprite('arrow', 'assets/arrow.png')
+game.load.sprite('background', 'assets/Battlefeild (1)')
   }
   function create() {
+game.add.sprite(0,0,'background')
 controls = game.input.keyboard.addKeys(
 {
   'shoot': Phaser.KeyCode.W,
@@ -47,6 +50,10 @@ weapon2.bulletSpeed = 300;
 weapon2.fireRate = 500;
 weapon2.bulletRotateToVelocity = true;
 weapon2.trackSprite(player2);
+player.animations.add('left', [70,71,72,73,74,75,76,77,78], 10, true);
+player.animations.add('right', [88,89,90,91,92,93,94,95,96], 10, true);
+player2.animations.add('left2', [70,71,72,73,74,75,76,77,78], 10, true);
+player2.animations.add('right2', [88,89,90,91,92,93,94,95,96], 10, true);
   }
   function update() {
 if (controls.left.isDown) {
