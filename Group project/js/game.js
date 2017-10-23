@@ -1,5 +1,5 @@
 window.onload = function() {
-  /var game = new Phaser.Game(800, 600, Phaser.AUTO, '',{ preload: preload, create: create, update: update});
+var game = new Phaser.Game(800, 600, Phaser.AUTO, '',{ preload: preload, create: create, update: update});
 var player
 var player2
 var controls
@@ -11,8 +11,8 @@ var weapon2
   //remeber to add name of sprite here
 game.load.spritesheet('player', 'assets/')
 game.load.spritesheet('player2', 'assets/')
-game.load.sprite('arrow', 'assets/arrow.png')
-game.load.sprite('background', 'assets/Battlefeild (1)')
+game.load.image('arrow', 'assets/arrow.png')
+game.load.image('background', 'assets/Battlefeild (1).png')
   }
   function create() {
 game.add.sprite(0,0,'background')
@@ -25,16 +25,16 @@ controls = game.input.keyboard.addKeys(
 );
 controls2 = game.input.keyboard.addKeys(
   {
-    'shoot2': Phaser.KeyCode.UPARROW
-    'left2': Phaser.KeyCode.LEFTARROW
+    'shoot2': Phaser.KeyCode.UPARROW,
+    'left2': Phaser.KeyCode.LEFTARROW,
     'right2': Phaser.KeyCode.RIGHTARROW
   }
 );
-player = game.add.sprite(game.world.width/3, game.world.height - 150, 'player');
+player = game.add.sprite(game.world.width/3, game.world.height - 50, 'player');
 player.anchor.setTo(0.5,0.5);
 game.physics.arcade.enable(player);
 player.body.collideWorldBounds = true;
-player2 = game.add.sprite(game.world.width/1, game.world.height - 150, 'player2');
+player2 = game.add.sprite(game.world.width/1.5, game.world.height - 50, 'player2');
 player2.anchor.setTo(0.5,0.5);
 game.physics.arcade.enable(player2);
 player2.collideWorldBounds = true;
