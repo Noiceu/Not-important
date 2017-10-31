@@ -4,18 +4,18 @@ var player
 var player2
 var controls
 var controls2
-var speed = 4
+var speed = 4;
 var weapon
 var weapon2
   function preload(){
   //remeber to add name of sprite here
-game.load.spritesheet('player', 'assets/')
-game.load.spritesheet('player2', 'assets/')
+game.load.spritesheet('player', 'assets/Femalesheet1.png', 64,64)
+game.load.spritesheet('player2', 'assets/Playersheet4.png', 64,64)
 game.load.image('arrow', 'assets/arrow.png')
 game.load.image('background', 'assets/Battlefeild (1).png')
   }
   function create() {
-game.add.sprite(0,0,'background')
+game.add.sprite(0,0,'background');
 controls = game.input.keyboard.addKeys(
 {
   'shoot': Phaser.KeyCode.W,
@@ -25,9 +25,9 @@ controls = game.input.keyboard.addKeys(
 );
 controls2 = game.input.keyboard.addKeys(
   {
-    'shoot2': Phaser.KeyCode.UPARROW,
-    'left2': Phaser.KeyCode.LEFTARROW,
-    'right2': Phaser.KeyCode.RIGHTARROW
+    'shoot2': Phaser.KeyCode.I,
+    'left2': Phaser.KeyCode.J,
+    'right2': Phaser.KeyCode.L
   }
 );
 player = game.add.sprite(game.world.width/3, game.world.height - 50, 'player');
@@ -50,16 +50,24 @@ weapon2.bulletSpeed = 300;
 weapon2.fireRate = 500;
 weapon2.bulletRotateToVelocity = true;
 weapon2.trackSprite(player2);
-player.animations.add('left', [70,71,72,73,74,75,76,77,78], 10, true);
-player.animations.add('right', [88,89,90,91,92,93,94,95,96], 10, true);
-player2.animations.add('left2', [70,71,72,73,74,75,76,77,78], 10, true);
-player2.animations.add('right2', [88,89,90,91,92,93,94,95,96], 10, true);
+player.animations.add('left', [117,118,119,120,121], 10, true);
+
+player.animations.add('right', [143,144,145,146,147,148,149], 10, true);
+player2.animations.add('left2', [117,118,119,120,121], 10, true);
+player2.animations.add('right2', [143,144,145,146,147,148], 10, true);
+player.animations.add('shoot', [121,122,123,124,125,126,127,128,129,130,131,132,133], 15, false);
+player2.animations.add('shoot2', [121,122,123,124,125,126,127,128,129,130,131,132,133], 15, false);
   }
   function update() {
 if (controls.left.isDown) {
   player.x -= speed;
+  player.animations.play('left');
 } else if (controls.right.isDown) {
   player.x += speed;
+  player.animations.play('right');
+} else {
+  player.animations.stop();
+  player.frame = 109;
 }
 if(controls.shoot.justDown){
 weapon.fire ();
@@ -68,9 +76,13 @@ if (controls2.left2.isDown) {
   player2.x -= speed;
 } else if (controls2.right2.isDown) {
     player2.x += speed;
+  } else {
+    player2.animations.stop();
+    player2.frame = 109;
   }
 if (controls2.shoot2.justDown){
 weapon2.fire ();
 }
+
   }
 };
