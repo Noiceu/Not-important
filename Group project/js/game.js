@@ -91,7 +91,8 @@ if (controls2.left2.isDown) {
 if (controls2.shoot2.justDown){
 weapon2.fire ();
 }
-game.physics.arcade.collide(OrkSpear, weapon.bullets, weapon2.bullets, OrkKill)
+game.physics.arcade.collide(OrkSpear, weapon.bullets, OrkKill)
+game.physics.arcade.collide(OrkSpear, weapon2.bullets, OrkKill)
   }
 
   function spawnWave(numSpawn) {
@@ -105,8 +106,8 @@ game.physics.arcade.collide(OrkSpear, weapon.bullets, weapon2.bullets, OrkKill)
       newOrkSpear.frame = 131;
     }
   }
-  function OrkKill(Ork, arrow) {
-    Ork.kill();
+  function OrkKill(OrkSpear, arrow) {
+    OrkSpear.kill();
     arrow.kill();
 
   }
