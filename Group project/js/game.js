@@ -7,12 +7,15 @@ var controls2
 var speed = 4;
 var weapon
 var weapon2
+var OrkSpear
+var Ork
   function preload(){
   //remeber to add name of sprite here
 game.load.spritesheet('player', 'assets/Femalesheet1.png', 64,64)
 game.load.spritesheet('player2', 'assets/Playersheet4.png', 64,64)
 game.load.image('arrow', 'assets/arrow.png')
 game.load.image('background', 'assets/Battlefeild (1).png')
+game.load.spritesheet('Ork', 'assets/Ork with Spear.png', 64,64)
   }
   function create() {
 game.add.sprite(0,0,'background');
@@ -51,13 +54,16 @@ weapon2.fireRate = 500;
 weapon2.bulletRotateToVelocity = true;
 weapon2.trackSprite(player2);
 player.animations.add('left', [117,118,119,120,121], 10, true);
-
 player.animations.add('right', [143,144,145,146,147,148,149], 10, true);
 player2.animations.add('left2', [117,118,119,120,121], 10, true);
 player2.animations.add('right2', [143,144,145,146,147,148], 10, true);
 player.animations.add('shoot', [121,122,123,124,125,126,127,128,129,130,131,132,133], 15, false);
 player2.animations.add('shoot2', [121,122,123,124,125,126,127,128,129,130,131,132,133], 15, false);
+OrkSpear = game.add.group();
+OrkSpear.enableBody = true;
+spawnWave(10);
   }
+
   function update() {
 if (controls.left.isDown) {
   player.x -= speed;
@@ -74,8 +80,10 @@ weapon.fire ();
 }
 if (controls2.left2.isDown) {
   player2.x -= speed;
+  player2.animations.play('left2')
 } else if (controls2.right2.isDown) {
     player2.x += speed;
+    player2.animations.play('right2')
   } else {
     player2.animations.stop();
     player2.frame = 109;
@@ -83,6 +91,23 @@ if (controls2.left2.isDown) {
 if (controls2.shoot2.justDown){
 weapon2.fire ();
 }
+game.physics.arcade.collide(OrkSpear, weapon.bullets, weapon2.bullets, OrkKill)
+  }
+
+  function spawnWave(numSpawn) {
+    for (var i = 0; i < numSpawn; i++)
+    {
+      var randX = game.rnd.integerInRange(0,game.width);
+      var newOrkSpear = OrkSpear.create(randX, -32, 'Ork');
+      var targetX = game.rnd.integerInRange(0, game.world.width);
+      game.physics.arcade.moveToXY(newOrkSpear, targetX, game.world.height);
+      newOrkSpear.body.gravity.y = game.rnd.integerInRange(6, 15);
+      newOrkSpear.frame = 131;
+    }
+  }
+  function OrkKill(Ork, arrow) {
+    Ork.kill();
+    arrow.kill();
 
   }
 };
