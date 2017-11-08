@@ -9,6 +9,8 @@ var weapon
 var weapon2
 var OrkSpear
 var Ork
+var score = 0;
+var scoreText;
   function preload(){
   //remeber to add name of sprite here
 game.load.spritesheet('player', 'assets/Femalesheet1.png', 64,64)
@@ -62,6 +64,7 @@ player2.animations.add('shoot2', [121,122,123,124,125,126,127,128,129,130,131,13
 OrkSpear = game.add.group();
 OrkSpear.enableBody = true;
 spawnWave(10);
+scoreText = game.add.text(16,game.world.height-96,'Score: ' + score, {fill:'yellow'})
   }
 
   function update() {
@@ -93,7 +96,7 @@ weapon2.fire ();
 }
 game.physics.arcade.collide(OrkSpear, weapon.bullets, OrkKill)
 game.physics.arcade.collide(OrkSpear, weapon2.bullets, OrkKill)
-  }
+}
 
   function spawnWave(numSpawn) {
     for (var i = 0; i < numSpawn; i++)
@@ -106,9 +109,15 @@ game.physics.arcade.collide(OrkSpear, weapon2.bullets, OrkKill)
       newOrkSpear.frame = 131;
     }
   }
-  function OrkKill(OrkSpear, arrow) {
-    OrkSpear.kill();
+  function OrkKill(Ork, arrow) {
+    Ork.kill();
     arrow.kill();
-
+    score += 10;
+    scoreText.text = 'Score: ' + score;
+    OrkSpear.remove(Ork);
+    if(OrkSpear.total < 1) {
+      spawnWave(13)
+    }
   }
+
 };
