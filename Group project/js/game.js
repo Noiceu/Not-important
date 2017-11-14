@@ -11,6 +11,8 @@ var OrkSpear
 var Ork
 var score = 0;
 var scoreText;
+var Orkill = 1
+var Wraith
   function preload(){
   //remeber to add name of sprite here
 game.load.spritesheet('player', 'assets/Femalesheet1.png', 64,64)
@@ -18,6 +20,7 @@ game.load.spritesheet('player2', 'assets/Playersheet4.png', 64,64)
 game.load.image('arrow', 'assets/arrow.png')
 game.load.image('background', 'assets/Battlefeild (1).png')
 game.load.spritesheet('Ork', 'assets/Ork with Spear.png', 64,64)
+game.load.image('Wraith', 'assets/Wraith.png')
   }
   function create() {
 game.add.sprite(0,0,'background');
@@ -63,8 +66,9 @@ player.animations.add('shoot', [121,122,123,124,125,126,127,128,129,130,131,132,
 player2.animations.add('shoot2', [121,122,123,124,125,126,127,128,129,130,131,132,133], 15, false);
 OrkSpear = game.add.group();
 OrkSpear.enableBody = true;
-spawnWave(10);
+spawnWave(3);
 scoreText = game.add.text(16,game.world.height-96,'Score: ' + score, {fill:'yellow'})
+Wraith = game.add.sprite(game.world.width/2.2, game.world.height - 550, 'Wraith')
   }
 
   function update() {
@@ -116,8 +120,9 @@ game.physics.arcade.collide(OrkSpear, weapon2.bullets, OrkKill)
     scoreText.text = 'Score: ' + score;
     OrkSpear.remove(Ork);
     if(OrkSpear.total < 1) {
-      spawnWave(13)
+      Orkill += 1;
+      spawnWave(3 + Orkill)
     }
-  }
+    }
 
 };
